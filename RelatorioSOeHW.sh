@@ -63,3 +63,15 @@ echo -e '\033[01;32mDisco Atual: \033[00;37m'
 echo -e '\033[01;32m \033[00;37m'$(echo $disk)
 lshw -short -C disk
 echo -e '\033[01;31m--------------------------------------------------------------------------------------------------------'
+echo -e '\033[01;32mInterface Firmware MOBO/SO: \033[00;37m'
+if [ -d /sys/firmware/efi ]; then
+        echo 'UEFI'
+else
+        echo 'BIOS'
+fi
+echo -e '\033[01;31m--------------------------------------------------------------------------------------------------------'
+echo -e '\033[01;32mDisco particionado em: \033[00;37m'
+exec1=$(parted -l | grep Disco | awk $'{print $2 " " "de" " " $3 ","}')
+exec2=$(parted -l | grep Tabela | awk $'{print $4}')
+echo 'Disco: '$exec1 'particionado em: '$exec2
+echo -e '\033[01;31m--------------------------------------------------------------------------------------------------------'
